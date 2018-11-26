@@ -109,10 +109,16 @@ fi = (function() {
       let newArray = [];
       for (element of array) {
         if (shallow) {
-          newArray.push(element);
+          if (typeof element == 'object') {
+            for (item of element) {
+              newArray.push(item);
+            }
+          } else {
+            newArray.push(element);
+          }
         } else {
           if (typeof element == 'object') {
-            newArray =  newArray.concat(fi.flatten(element))
+            newArray = newArray.concat(fi.flatten(element))
           } else {
             newArray.push(element);
           }
